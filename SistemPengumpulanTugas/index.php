@@ -1,87 +1,86 @@
-<?php
-require_once 'config.php';
-$sql = "SELECT * FROM praktikum ORDER BY nama_praktikum ASC";
-$result = mysqli_query($conn, $sql);
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Katalog Praktikum</title>
+  <title>Katalog Praktikum - SIMAKSI</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #EEEFE0;
     }
-    .bg-kampus {
-      background-color: #819A91;
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease-out forwards;
     }
-    .text-kampus {
-      color: #819A91;
-    }
-    .btn-kampus {
-      background-color: #A7C1A8;
-    }
-    .card-kampus {
-      background-color: #D1D8BE;
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
-<body class="text-gray-800">
+<body class="bg-gradient-to-br from-white to-gray-100 text-gray-800">
 
   <!-- Header -->
-<header class="bg-kampus text-white py-4 shadow-md">
-  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
-    
-    <!-- Kiri: Logo & Judul -->
-    <div>
-      <h1 class="text-2xl font-bold">🌐 Sistem Informasi Praktikum</h1>
-      <p class="text-sm opacity-90">Fakultas Teknologi Informasi - Universitas Contoh</p>
-    </div>
-    
-    <!-- Kanan: Tombol Login -->
-    <div>
-      <a href="login.php" class="btn-kampus text-white px-5 py-2 rounded font-semibold transition hover:opacity-90">
+  <header class="bg-white border-b border-gray-200 py-6 shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+      <div>
+        <h1 class="text-3xl font-extrabold text-blue-700 tracking-wide">🌐 SIMAKSI</h1>
+        <p class="text-sm text-gray-500">Sistem Informasi Manajemen Praktikum</p>
+      </div>
+      <a href="login.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium px-5 py-2 rounded-md transition shadow-sm">
         Masuk ke Sistem
       </a>
     </div>
+  </header>
 
-  </div>
-</header>
+  <!-- Hero -->
+  <section class="text-center py-12 px-4 bg-white shadow-inner">
+    <h2 class="text-2xl sm:text-3xl font-semibold text-blue-700 mb-2">📚 Daftar Mata Praktikum</h2>
+    <p class="text-gray-600">Berikut adalah daftar tetap mata praktikum yang tersedia.</p>
+  </section>
 
-
-
-  <!-- Konten -->
-  <main class="container mx-auto px-6 py-10">
-    <h2 class="text-2xl font-semibold text-kampus mb-6 text-center">📚 Daftar Mata Praktikum</h2>
-
+  <!-- Kartu Praktikum -->
+  <main class="max-w-6xl mx-auto px-6 py-12">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <?php while ($row = mysqli_fetch_assoc($result)): ?>
-        <div class="card-kampus rounded-lg shadow-md hover:shadow-lg transition border border-gray-300 p-5 text-center">
+
+      <?php
+      $praktikum = [
+        ['nama' => 'Praktikum PABD', 'semester' => 4, 'kode' => 'PABD401'],
+        ['nama' => 'Praktikum STQA', 'semester' => 4, 'kode' => 'STQA401'],
+        ['nama' => 'Praktikum PDW', 'semester' => 5, 'kode' => 'PDW501'],
+        ['nama' => 'Praktikum Deploy', 'semester' => 5, 'kode' => 'DEP501'],
+        ['nama' => 'Praktikum Cyber', 'semester' => 6, 'kode' => 'CYB601'],
+      ];
+      $delay = 0.1;
+      foreach ($praktikum as $p):
+      ?>
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all fade-up" style="animation-delay: <?= $delay ?>s">
           <div class="mb-4 flex justify-center">
-            <!-- Icon akademik -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-kampus" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0 0l-3-3m3 3l3-3" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0 0l-3-3m3 3l3-3"/>
             </svg>
           </div>
-          <h3 class="text-lg font-bold"><?= htmlspecialchars($row['nama_praktikum']) ?></h3>
-          <p class="text-sm">Semester: <?= htmlspecialchars($row['semester']) ?></p>
-          <p class="text-sm mt-1 text-gray-700">Kode: <?= htmlspecialchars($row['kode_praktikum'] ?? '-') ?></p>
+          <h3 class="text-lg font-bold text-gray-800"><?= $p['nama'] ?></h3>
+          <p class="text-sm text-gray-500 mt-1">Semester: <?= $p['semester'] ?></p>
+          <p class="text-xs text-gray-400 mt-1">Kode: <?= $p['kode'] ?></p>
         </div>
-      <?php endwhile; ?>
+      <?php $delay += 0.1; endforeach; ?>
     </div>
 
-    <div class="mt-10 text-center">
-      <a href="login.php" class="inline-block btn-kampus text-white px-6 py-2 rounded font-semibold transition hover:opacity-90">
+    <div class="text-center mt-12">
+      <a href="login.php" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition">
         Masuk ke Sistem
       </a>
     </div>
   </main>
 
-  <footer class="bg-gray-300 mt-10 py-4 text-center text-sm text-gray-600">
-    &copy; <?= date('Y') ?> Sistem Praktikum • Universitas Contoh
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6 border-t border-gray-200 bg-white">
+    &copy; <?= date('Y') ?> SIMAKSI 
   </footer>
 </body>
 </html>

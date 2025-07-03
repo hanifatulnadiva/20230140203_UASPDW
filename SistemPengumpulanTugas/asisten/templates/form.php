@@ -42,7 +42,7 @@
   <div class="flex justify-between items-center mt-6">
   <button 
     type="submit"
-    onclick="return confirm('Apakah Anda yakin ingin menyimpan data ini?')"
+    onclick="return confirm('Apakah Anda yakin ingin <?= $isEdit ? 'memperbarui' : 'menyimpan' ?> data ini?')"
     class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
   >
     <?= $isEdit ? 'Update' : 'Simpan' ?>

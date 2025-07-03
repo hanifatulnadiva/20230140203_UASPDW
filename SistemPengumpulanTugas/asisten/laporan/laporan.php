@@ -89,8 +89,6 @@ echo '<div class="mb-4">
             <option value="sudah" ' . ($status === 'sudah' ? 'selected' : '') . '>Sudah Dikumpulkan</option>
             <option value="belum" ' . ($status === 'belum' ? 'selected' : '') . '>Belum Dikumpulkan</option>
         </select>
-
-        <a href="laporan.php" class="text-blue-500 underline">Reset</a>
     </form>
 </div>
 
