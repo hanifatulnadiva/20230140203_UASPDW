@@ -62,6 +62,7 @@ $fields = ['nama', 'email', 'password', 'role'];
 $labels = ['Nama Lengkap', 'Email', 'Password (opsional)', 'Role'];
 $action = '';
 $isEdit = true;
+$backUrl = 'akun.php'
 ?>
 
 <!-- Notifikasi jika gagal -->

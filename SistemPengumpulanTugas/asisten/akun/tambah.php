@@ -50,6 +50,7 @@ $labels = ['Nama Lengkap', 'Email', 'Password', 'Role'];
 $data = [];
 $action = ''; // karena submit ke halaman yang sama
 $isEdit = false;
+$backUrl = 'akun.php'
 ?>
 
 <div class="max-w-md mx-auto mt-6">

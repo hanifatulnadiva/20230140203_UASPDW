@@ -47,6 +47,6 @@
   >
     <?= $isEdit ? 'Update' : 'Simpan' ?>
   </button>
-  <a href="akun.php" class="text-gray-600 hover:underline">Batal</a>
+  <a href="<?= $backUrl ?>" class="text-gray-600 hover:underline">Batal</a>
 </div>
 </form>

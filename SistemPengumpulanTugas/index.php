@@ -1,114 +1,87 @@
 <?php
-session_start();
 require_once 'config.php';
-
-// Jika sudah login, redirect ke halaman yang sesuai
-if (isset($_SESSION['user_id'])) {
-    if ($_SESSION['role'] == 'asisten') {
-        header("Location: asisten/dashboard.php");
-    } elseif ($_SESSION['role'] == 'mahasiswa') {
-        header("Location: mahasiswa/dashboard.php");
-    }
-    exit();
-}
-
-$message = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-
-    if (empty($email) || empty($password)) {
-        $message = "Email dan password harus diisi!";
-    } else {
-        $sql = "SELECT id, nama, email, password, role FROM users WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows === 1) {
-            $user = $result->fetch_assoc();
-
-            // Verifikasi password
-            if (password_verify($password, $user['password'])) {
-                // Password benar, simpan semua data penting ke session
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['nama'] = $user['nama'];
-                $_SESSION['role'] = $user['role'];
-
-                // ====== INI BAGIAN YANG DIUBAH ======
-                // Logika untuk mengarahkan pengguna berdasarkan peran (role)
-                if ($user['role'] == 'asisten') {
-                    header("Location: asisten/dashboard.php");
-                    exit();
-                } elseif ($user['role'] == 'mahasiswa') {
-                    header("Location: mahasiswa/dashboard.php");
-                    exit();
-                } else {
-                    // Fallback jika peran tidak dikenali
-                    $message = "Peran pengguna tidak valid.";
-                }
-                // ====== AKHIR DARI BAGIAN YANG DIUBAH ======
-
-            } else {
-                $message = "Password yang Anda masukkan salah.";
-            }
-        } else {
-            $message = "Akun dengan email tersebut tidak ditemukan.";
-        }
-        $stmt->close();
-    }
-}
-$conn->close();
+$sql = "SELECT * FROM praktikum ORDER BY nama_praktikum ASC";
+$result = mysqli_query($conn, $sql);
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <style>
-        /* ... (CSS Anda tidak perlu diubah) ... */
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background-color: #fff; padding: 20px 40px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 320px; }
-        h2 { text-align: center; color: #333; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #555; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        .btn { background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
-        .btn:hover { background-color: #0056b3; }
-        .message { color: red; text-align: center; margin-bottom: 15px; }
-        .message.success { color: green; }
-        .register-link { text-align: center; margin-top: 15px; }
-        .register-link a { color: #28a745; text-decoration: none; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Katalog Praktikum</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #EEEFE0;
+    }
+    .bg-kampus {
+      background-color: #819A91;
+    }
+    .text-kampus {
+      color: #819A91;
+    }
+    .btn-kampus {
+      background-color: #A7C1A8;
+    }
+    .card-kampus {
+      background-color: #D1D8BE;
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <h2>Login</h2>
-        <?php 
-            if (isset($_GET['status']) && $_GET['status'] == 'registered') {
-                echo '<p class="message success">Registrasi berhasil! Silakan login.</p>';
-            }
-            if (!empty($message)) {
-                echo '<p class="message">' . $message . '</p>';
-            }
-        ?>
-        <form action="index.php" method="post">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn">Login</button>
-        </form>
-         <div class="register-link">
-            <p>Belum punya akun? <a href="register.php">Daftar di sini</a></p>
-        </div>
+<body class="text-gray-800">
+
+  <!-- Header -->
+<header class="bg-kampus text-white py-4 shadow-md">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+    
+    <!-- Kiri: Logo & Judul -->
+    <div>
+      <h1 class="text-2xl font-bold">🌐 Sistem Informasi Praktikum</h1>
+      <p class="text-sm opacity-90">Fakultas Teknologi Informasi - Universitas Contoh</p>
     </div>
+    
+    <!-- Kanan: Tombol Login -->
+    <div>
+      <a href="login.php" class="btn-kampus text-white px-5 py-2 rounded font-semibold transition hover:opacity-90">
+        Masuk ke Sistem
+      </a>
+    </div>
+
+  </div>
+</header>
+
+
+
+  <!-- Konten -->
+  <main class="container mx-auto px-6 py-10">
+    <h2 class="text-2xl font-semibold text-kampus mb-6 text-center">📚 Daftar Mata Praktikum</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <?php while ($row = mysqli_fetch_assoc($result)): ?>
+        <div class="card-kampus rounded-lg shadow-md hover:shadow-lg transition border border-gray-300 p-5 text-center">
+          <div class="mb-4 flex justify-center">
+            <!-- Icon akademik -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-kampus" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0 0l-3-3m3 3l3-3" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold"><?= htmlspecialchars($row['nama_praktikum']) ?></h3>
+          <p class="text-sm">Semester: <?= htmlspecialchars($row['semester']) ?></p>
+          <p class="text-sm mt-1 text-gray-700">Kode: <?= htmlspecialchars($row['kode_praktikum'] ?? '-') ?></p>
+        </div>
+      <?php endwhile; ?>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="login.php" class="inline-block btn-kampus text-white px-6 py-2 rounded font-semibold transition hover:opacity-90">
+        Masuk ke Sistem
+      </a>
+    </div>
+  </main>
+
+  <footer class="bg-gray-300 mt-10 py-4 text-center text-sm text-gray-600">
+    &copy; <?= date('Y') ?> Sistem Praktikum • Universitas Contoh
+  </footer>
 </body>
 </html>
