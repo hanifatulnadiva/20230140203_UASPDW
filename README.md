@@ -1,4 +1,7 @@
 # 20230140203_UASPDW
+Katalog
+![image](https://github.com/user-attachments/assets/0cd9b3e7-d63f-4738-9f4a-b6a233a4b5f6)
+
 Asisten
 Halaman Dashboard
 ![image](https://github.com/user-attachments/assets/7f5f53d5-c63d-4549-ab28-4005099e689a)
@@ -36,8 +39,32 @@ feedback
 HalamanAkun
 ![image](https://github.com/user-attachments/assets/a8fafd21-65db-43e8-bc31-b457f576c55c)
 Tambah
+![image](https://github.com/user-attachments/assets/27711e53-6dfc-45fd-ae0e-cbb1d44a1a52)
+![image](https://github.com/user-attachments/assets/858857a1-1027-4259-97ac-c0ed96389981)
 Edit
+![image](https://github.com/user-attachments/assets/4c374197-fe07-4b58-8c8e-2a7b4c9c195d)
+![image](https://github.com/user-attachments/assets/9ca8654b-3e4f-43ce-a7c6-f7d075ab1482)
 Hapus
+![image](https://github.com/user-attachments/assets/c47f3ceb-e5c3-466d-90b3-f5c70d50180f)
+![image](https://github.com/user-attachments/assets/0b886dfd-e077-4717-96f7-9b9a94b6b16c)
+
+Mahasiswa
+dashboard
+![image](https://github.com/user-attachments/assets/203916b3-0354-4e2a-9972-e783c9ed3716)
+
+Halaman Praktikum
+![image](https://github.com/user-attachments/assets/d88184ef-1f38-4e0b-8257-07a7e73348b8)
+![image](https://github.com/user-attachments/assets/aaaf7d47-c095-450d-abde-c341de4dbcde)
+![image](https://github.com/user-attachments/assets/6f4bc185-3259-47d7-bbce-f2bdc6fc5006)
+![image](https://github.com/user-attachments/assets/b6875860-a899-4304-8f18-b560cedf47ed)
+![image](https://github.com/user-attachments/assets/b64e2905-a941-4a15-a5e1-846e5bdc2571)
+![image](https://github.com/user-attachments/assets/fbbd849a-5091-4aa8-82fb-7edf84ffda9b)
+
+
+
+
+
+
 
 
 
